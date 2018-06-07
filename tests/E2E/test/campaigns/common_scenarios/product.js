@@ -85,7 +85,7 @@ module.exports = {
           test('should click on "Add feature" button', () => {
             return promise
               .then(() => client.scrollTo(AddProductPage.product_create_category_btn))
-              .then(() => client.waitForExistAndClick(AddProductPage.add_feature_to_product_button));
+              .then(() => client.waitForExistAndClick(AddProductPage.product_add_feature_btn));
           });
           test('should select the created feature', () => client.selectFeature(AddProductPage, productData['feature']['name'] + date_time, productData['feature']['value']));
         }, 'product/product');
@@ -471,5 +471,65 @@ module.exports = {
       test('should go to "Catalog" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.products_submenu));
       test('should click on "Reset" button', () => client.waitForExistAndClick(AddProductPage.catalog_reset_filter));
     }, 'product/check_product');
+  },
+  clickOnCoverAndSave(client) {
+    test('should click on "Cover image" checkbox', () => client.waitForExistAndClick(AddProductPage.picture_cover_checkbox));
+    test('should click on "Save image settings" button', () =>  client.waitForExistAndClick(AddProductPage.picture_save_image_settings_button));
+    test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, "Settings updated."));
+  },
+  checkTinyMceButtons(client, id) {
+    test('should check the appearance of "Source" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 1)));
+    test('should check the appearance of "Color picker" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 2)));
+    test('should check the appearance of "Bold" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 3)));
+    test('should check the appearance of "Italic" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 4)));
+    test('should check the appearance of "Underline" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 5)));
+    test('should check the appearance of "Strikethrough" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 6)));
+    test('should check the appearance of "Blockquote" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 7)));
+    test('should check the appearance of "Insert/edit link" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 8)));
+    test('should check the appearance of "Text format" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 9)));
+    test('should check the appearance of "Bullet list" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 10)));
+    test('should check the appearance of "Numbered list" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 11)));
+    test('should check the appearance of "Table" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 12)));
+    test('should check the appearance of "Insert/edit image" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 13)));
+    test('should check the appearance of "Insert/edit video" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 14)));
+    test('should check the appearance of "Presentation" button', () => client.isExisting(AddProductPage.tinymce_buttons.replace('%ID', id + 15)));
+  },
+  // addProductFeature(client, feature, id, predefinedValue = '', customValue = '', option = "predefined_value") {
+  //   if (option === "predefined_value") {
+  //     test('should click on "Add a feature" and select one bbbbbbbbb', () => {
+  //       return promise
+  //       //  .then(() => client.scrollTo(AddProductPage.product_create_category_btn,2000))
+  //         .then(() => client.scrollWaitForExistAndClick(AddProductPage.product_add_feature_btn,0, 3000))
+  //     });
+  //   } else {
+  //     test('should click on "Add a feature" and select one ffff', () => client.scrollWaitForExistAndClick(AddProductPage.product_add_feature_btn,0,2000));
+  //   }
+  //   test('should choose "' + feature + '" feature from the dropdown list', () => {
+  //     return promise
+  //       .then(() => client.scrollWaitForExistAndClick(AddProductPage.feature_select_button.replace('%ID', id)))
+  //       .then(() => client.waitForVisibleAndClick(AddProductPage.feature_select_option.replace('%ID', id).replace('%V', feature),1000));
+  //   });
+  //   if (option === "predefined_value") {
+  //     test('should choose "Cotton" pre-defined value from the dropdown list', () => client.waitAndSelectByVisibleText(AddProductPage.feature_value_select.replace('%ID', id).replace('%V', 'not(@disabled)'), predefinedValue, 2000));
+  //   } else {
+  //     test('should set the "Custom value" input', () => client.waitAndSetValue(AddProductPage.feature_custom_value.replace('%ID', 1), customValue));
+  //   }
+  // }
+  addProductFeature(client, feature, id, predefinedValue = '', customValue = '', option = "predefined_value") {
+    test('should click on "Add a feature" button', () => {
+      return promise
+        .then(() => client.scrollTo(AddProductPage.add_related_product_btn))
+        .then(() => client.waitForExistAndClick(AddProductPage.product_add_feature_btn, 3000));
+    });
+    test('should choose "' + feature + '" feature from the dropdown list', () => {
+      return promise
+        .then(() => client.scrollWaitForExistAndClick(AddProductPage.feature_select_button.replace('%ID', id)))
+        .then(() => client.waitForVisibleAndClick(AddProductPage.feature_select_option.replace('%ID', id).replace('%V', feature)));
+    });
+    if (option === "predefined_value") {
+      test('should choose the "' + predefinedValue + '" pre-defined value from the dropdown list', () => client.waitAndSelectByVisibleText(AddProductPage.feature_value_select.replace('%ID', id).replace('%V', 'not(@disabled)'), predefinedValue, 2000));
+    } else {
+      test('should set the "Custom value" input', () => client.waitAndSetValue(AddProductPage.feature_custom_value.replace('%ID', id), customValue));
+    }
   }
 };

@@ -3,6 +3,7 @@ const {languageFO} = require('../selectors/FO/index');
 let path = require('path');
 let fs = require('fs');
 let pdfUtil = require('pdf-to-text');
+const exec = require('child_process').exec;
 
 global.tab = [];
 global.isOpen = false;
@@ -90,7 +91,7 @@ class CommonClient {
       });
   }
 
-  isVisibleWithinViewport(selector){
+  isVisibleWithinViewport(selector) {
     return this.client
       .isVisibleWithinViewport(selector);
   }
@@ -109,7 +110,8 @@ class CommonClient {
         if (isVisible) {
           this.client.waitForVisibleAndClick(languageFO.language_option.replace('%LANG', language));
         }
-      });
+      })
+      .then(() => this.client.pause(2000));
   }
 
   selectLanguage(selector, option, language, id) {
@@ -130,7 +132,7 @@ class CommonClient {
     return this.client.end();
   }
 
-  closeWindow(id){
+  closeWindow(id) {
     return this.client.closeWindow(id);
   }
 
@@ -146,8 +148,9 @@ class CommonClient {
       .waitAndSetValue(selector, value, timeout);
   }
 
-  scrollTo(selector, margin) {
-    return this.client.scrollTo(selector, margin);
+  scrollTo(selector, margin, pause = 0) {
+    return this.client.pause(pause)
+      .scrollTo(selector, margin);
   }
 
   scrollWaitForExistAndClick(selector, margin, pause = 0, timeout = 90000) {
@@ -168,8 +171,10 @@ class CommonClient {
       .moveToObject(selector);
   }
 
-  waitAndSelectByValue(selector, value, timeout = 90000) {
-    return this.client.waitAndSelectByValue(selector, value, timeout);
+  waitAndSelectByValue(selector, value, pause = 0, timeout = 90000) {
+    return this.client
+      .pause(pause)
+      .waitAndSelectByValue(selector, value, timeout);
   }
 
   waitAndSelectByVisibleText(selector, value, timeout = 90000) {
@@ -257,6 +262,12 @@ class CommonClient {
           .waitForExist(selector, 90000)
           .then(() => this.client.getAttribute(selector, attribute))
           .then((text) => expect(text).to.not.equal(value));
+      case "least":
+        return this.client
+          .pause(pause)
+          .waitForExist(selector, 90000)
+          .then(() => this.client.getAttribute(selector, attribute))
+          .then((text) => expect(parseInt(text)).to.be.at.least(value));
     }
   }
 
@@ -482,13 +493,6 @@ class CommonClient {
     delete object[pos];
   }
 
-  setAttributeById(selector) {
-    return this.client
-      .execute(function (selector) {
-        document.getElementById(selector).style.display = 'none';
-      }, selector);
-  }
-
   stringifyNumber(number) {
     let special = ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth'];
     let deca = ['twent', 'thirt', 'fort', 'fift', 'sixt', 'sevent', 'eight', 'ninet'];
@@ -536,7 +540,7 @@ class CommonClient {
   }
 
   middleClick(selector, globalVisibility = true, pause = 2000) {
-    if(visibility){
+    if (visibility) {
       return this.client
         .moveToObject(selector)
         .pause(pause)
@@ -546,11 +550,11 @@ class CommonClient {
     }
   }
 
-/*  middleClick(selector,) {
-    return this.client
-      .waitForExist(selector, 9000)
-      .middleClick(selector);
-  }*/
+  /*  middleClick(selector,) {
+   return this.client
+   .waitForExist(selector, 9000)
+   .middleClick(selector);
+   }*/
 
   getParamFromURL(param, pause = 0) {
     return this.client
@@ -579,7 +583,33 @@ class CommonClient {
       .selectByVisibleText(selector, text)
   }
 
+  clickAndOpenOnNewWindow(menuSelector, submenuSelector, id) {
+    return this.client
+      .pause(6000)
+      .scrollWaitForExistAndClick(menuSelector)
+      .pause(2000)
+      .waitForVisible(submenuSelector)
+      .middleClick(submenuSelector)
+      .switchWindow(id)
+  }
 
+  setMachineDate(numberOfDay) {
+    var machineDate = new Date();
+    numberOfDay > 0 ? machineDate = machineDate.setDate(machineDate.getDate() + numberOfDay) : machineDate = machineDate.setDate(machineDate.getDate() - numberOfDay);
+    exec('sudo date -s "' + new Date(machineDate) + '"',
+      (error, stdout, stderr) => {
+        global.error = error;
+      });
+    return this.client
+      .pause(4000)
+      .then(() => {
+        expect(global.error).to.be.a('null');
+      });
+  }
+
+  openURLOnNewWindow(url) {
+    return this.client.newWindow(url);
+  }
 }
 
 module.exports = CommonClient;

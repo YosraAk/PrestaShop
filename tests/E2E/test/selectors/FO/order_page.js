@@ -41,6 +41,11 @@ module.exports = {
     display_after_carrier_second_link_widget: '//*[@id="hook-display-after-carrier"]//div[2]/p',
     modal_content: '//*[@id="blockcart-modal"]//div[@class="modal-content"]',
     cart_page: '//*[@id="cart"]',
-    cart_body: '(//*[@id="main"]//div[contains(@class, "body")])[1]'
+    cart_body: '(//*[@id="main"]//div[contains(@class, "body")])[1]',
+    product_name_link: '//*[@id="main"]//li[@class="cart-item"]//a[@class="label"]',
+    product_customization_link: '(//*[@id="main"]//a[text()="Product customization"])[%I]',
+    product_customization_modal: '(//div[contains(@class,"product-customization-line")]/div[%R])[%I]',
+    product_customization_modal_image: '//div[contains(@class,"product-customization-line")]//img',
+    product_customization_close_modal_button: '(//button[@class="close"])[%I]'
   }
 };

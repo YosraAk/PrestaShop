@@ -13,6 +13,8 @@ module.exports = {
     adr_address: '//*[@id="content"]//input[@name="address1"]',
     adr_postcode: '//*[@id="content"]//input[@name="postcode"]',
     adr_city: '//*[@id="content"]//input[@name="city"]',
+    adr_country: '//*[@id="content"]//select[@name="id_country"]',
+    adr_state: '//*[@id="content"]//select[@name="id_state"]',
     adr_save: '//*[@id="content"]//footer/button',
     success_alert: '[data-alert="success"]',
     adr_update: '[data-link-action="edit-address"]',

@@ -10,6 +10,7 @@ module.exports = {
     product_reference: '(//*[@id="main"]//span[@itemprop="sku"])[1]',
     product_manufacturer: '//*[@id="product-details"]//div[@class="product-manufacturer"]/a',
     product_quantity: '//*[@id="product-details"]/div[@class="product-quantities"]/span',
+    product_pictures: '//*[@id="content"]//li[%ID]/img[@title="%LEGEND"]',
     pack_product_name: '//*[@id="add-to-cart-or-refresh"]//article[%P]//div[@class="pack-product-name"]/a',
     pack_product_price: '//*[@id="add-to-cart-or-refresh"]//article[%P]//div[@class="pack-product-price"]',
     pack_product_quantity: '//*[@id="add-to-cart-or-refresh"]//article[%P]//div[@class="pack-product-quantity"]',
@@ -22,6 +23,8 @@ module.exports = {
     current_page: '//*[@id="js-product-list"]//ul[contains(@class, "page-list")]/li[@class="current"]/a',
     product_discount_details: '//*[@id="main"]//span[contains(@class, "discount")]',
     quick_view_add_to_cart: '//*[@id="add-to-cart-or-refresh"]//button[contains(@data-button-action, "add-to-cart")]',
+    quick_view_product_price: '//div[@class="current-price"]//span[@itemprop="price"]',
+    quick_view_product_discount: '//div[@class="current-price"]//span[contains(@class,"discount")]',
     //Get the number of products in front office after clicking on "SEE ALL PRODUCTS" link
     products_number: '//*[@id="js-product-list-top"]//p',
     offline_warning_message: '//div[contains(@class, "alert-warning")]//p',
@@ -31,7 +34,6 @@ module.exports = {
     product_summary: '(//*[@itemprop="description"]//p)[1]',
     product_description: '//*[@id="description"]',
     productLink: '//*[@id="js-product-list"]//div[contains(class, highlighted-informations)]//a[contains(text(), "%PRODUCTNAME")]',
-    product_detail_tab: '//*[@role="tablist"]//li[2]',
     attachments_tab: '//*[@id="main"]//div[@class="product-information"]//a[@aria-controls="attachments"]',
     product_footer_linkwidget:'//*[@id="main"]/div[2]//p[contains(text(),"%DISPLAYFOOTERPRODUCT")]',
     filename_link: '(//*[@id="attachments"]//a)[1]',
@@ -45,6 +47,27 @@ module.exports = {
     product_section: '//*[@id="main"]/div[1]/div[%I]',
     category_page: '//*[@id="category"]',
     left_column_block: '//*[@id="left-column"]',
-    pagination_block: '//*[@id="js-product-list"]/nav'
+    pagination_block: '//*[@id="js-product-list"]/nav',
+    product_detail_tab: '//*[@role="tablist"]//li[2]',//@TODO change the selector with product_tab_list
+    product_tab_list: '//*[@role="tablist"]//li[%I]',
+    product_features: '//*[@id="product-details"]/section/dl/*[text()[contains(., "%F")]]',
+    manufacturer_picture: '//*[@id="product-details"]//img[@alt="%ALT"]',
+    related_product: '//*[@id="main"]//article[%I]//a[contains(@href, "%S")]',
+    product_availability: '//*[@id="product-availability"]',
+    product_minimal_quantity: '//*[@id="add-to-cart-or-refresh"]//p[@class="product-minimal-quantity"]',
+    product_quantity_input: '//*[@id="quantity_wanted"]',
+    product_availability_date: '//*[@id="product-details"]/div[@class="product-availability-date"]/span',
+    product_unit_price: '//*[@id="main"]//p[contains(@class, "product-unit-price")]',
+    product_on_sale_flag: '//li[contains(@class, "on-sale")]',
+    home_button: '//*[@id="_desktop_logo"]//img[contains(@class,"logo")]',
+    product_online_only_flag: '//*[@id="content"]//li[contains(@class, "online-only")]',
+    product_image: '//*[@id="js-product-list"]//a[contains(@href,"%S")]/img',
+    product_condition: '//*[@id="product-details"]/div[@class="product-condition"]/span',
+    product_customization_message: '//*[@id="main"]//textarea[@class="product-message"]',
+    save_customization_button: '//*[@id="main"]//button[@name="submitCustomizedData"]',
+    product_customization_file: '//*[contains(@class, "file-input")]',
+    attachment_title: '//*[@id="attachments"]//div[@class="attachment"]//a',
+    attachment_description: '//*[@id="attachments"]//div[@class="attachment"]//p',
+    delete_shopping_cart_item: '//*[@id="main"]//a[@class="remove-from-cart"]'
   }
 };

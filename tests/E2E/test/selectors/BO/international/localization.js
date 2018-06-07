@@ -25,6 +25,15 @@ module.exports = {
       dropdown_button: '//*[@id="table-lang"]/tbody//button[@data-toggle="dropdown"]',
       delete_button: '//*[@id="table-lang"]/tbody//a[@title="Delete"]',
       reset_button: '//*[@id="table-lang"]//button[contains(@name, "Reset")]'
+    },
+    Currency: {
+      add_new_currency_button: '//*[@id="page-header-desc-currency-new_currency"]',
+      status_button: '//*[@id="currencyStatus"]',
+      save_button: '//*[@id="currency_form_submit_btn"]',
+      iso_code_filter_input: '//*[@id="table-currency"]//input[@name="currencyFilter_iso_code"]',
+      search_button: '//*[@id="submitFilterButtoncurrency"]',
+      dropdown_toggle_button: '//*[@id="table-currency"]//button[contains(@class, "dropdown-toggle")]',
+      delete_button: '//*[@id="table-currency"]//a[@title="Delete"]'
     }
   }
 };
