@@ -43,10 +43,7 @@ module.exports = {
     var_selected_quantitie: '//*[@id="product_combination_bulk_quantity"]',
     combinations_thead: '//*[@id="combinations_thead"]/tr/th[7]',
     save_quantitie_button: '//*[@id="apply-on-combinations"]',
-    //add_feature_to_product_button: '//*[@id="add_feature_button"]',//@TODO unused selector
-    //feature_select: '//*[@id="features-content"]/div/div/div[1]/fieldset/span/span[1]/span',
     select_feature_created: '/html/body//span/span[1]/input',
-    //feature_select_button: '//*[@id="features-content"]/div/div/div[1]/fieldset/span/span[1]/span',//@TODO change the other selector
     result_feature_select: '//*[@id="select2-form_step1_features_%ID_feature-results"]/li',
     summary_textarea: '(//*[@id="form_step1_description_short"]//div[@class="mce-tinymce mce-container mce-panel"])[1]',
     description_textarea: '(//*[@id="form_step1_description"]//div[@class="mce-tinymce mce-container mce-panel"])[1]',

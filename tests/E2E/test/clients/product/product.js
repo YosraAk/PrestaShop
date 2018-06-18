@@ -107,7 +107,7 @@ class Product extends CommonClient {
     return this.client
       .scrollTo(AddProductPage.product_add_feature_btn, 150)
       .waitForExistAndClick(AddProductPage.product_add_feature_btn)
-      .waitForExistAndClick(AddProductPage.feature_select_button)
+      .waitForExistAndClick(AddProductPage.feature_select_button.replace('%ID', 0))
       .waitForExistAndClick(AddProductPage.feature_select_option.replace('%ID', 0).replace('%V', "Height"))
       .waitAndSetValue(AddProductPage.feature_custom_value.replace('%ID', 0), data.standard.features.feature1.custom_value);
   }
