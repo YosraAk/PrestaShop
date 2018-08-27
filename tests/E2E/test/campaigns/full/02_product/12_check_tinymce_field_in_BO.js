@@ -5,21 +5,20 @@ const {OnBoarding} = require('../../../selectors/BO/onboarding');
 const common_scenarios = require('../../common_scenarios/employee');
 const common_international_scenarios = require('../../common_scenarios/international');
 let promise = Promise.resolve();
+require('../../../globals.webdriverio');
 
 let employeeData = [
   {
     firstname: 'Demo',
     lastname: "Prestashop",
-    email: global.credentials.email,
-    password: global.credentials.password,
+    email: global.adminEmail,
     profile: '4',
     language: 'Tiếng Việt (Vietnamese)'
   },
   {
     firstname: 'Demo',
     lastname: "Prestashop",
-    email: global.credentials.email,
-    password: global.credentials.password,
+    email: global.adminEmail,
     profile: '4',
     language: 'English (English)'
   }

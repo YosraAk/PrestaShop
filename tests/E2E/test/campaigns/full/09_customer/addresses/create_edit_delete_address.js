@@ -5,6 +5,7 @@ const common_scenarios = require('../../../common_scenarios/addresses');
 const customer_common_scenarios = require('../../../common_scenarios/customer');
 const {AccessPageFO} = require('../../../../selectors/FO/access_page');
 const {BO} = require('../../../../selectors/BO/customers/index');
+require('../../../../globals.webdriverio');
 
 let promise = Promise.resolve();
 

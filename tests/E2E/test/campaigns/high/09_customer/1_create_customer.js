@@ -1,5 +1,6 @@
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const common_scenarios = require('../../common_scenarios/customer');
+require('../../../globals.webdriverio');
 
 let customerData = {
   first_name: 'demo',
