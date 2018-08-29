@@ -16,6 +16,7 @@ module.exports = {
     success_box: '//*[@id="main-div"]//div[contains(@class, "success")]//div[contains(@class, "alert-text")]',
     menu_button: '//*[@id="subtab-ShopParameters"]',
     maintenance_mode_link: '//*[@id="maintenance-mode"]',
+    enable_disable_multistore_toggle_button: '//label[@for="form_general_multishop_feature_active_%ID"]',
   },
   TrafficAndSeo: {
     SeoAndUrls: {
