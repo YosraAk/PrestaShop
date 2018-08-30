@@ -2,6 +2,8 @@ const {Menu} = require('../../selectors/BO/menu.js');
 let promise = Promise.resolve();
 const {ProductList} = require('../../selectors/BO/add_product_page');
 const {AddProductPage} = require('../../selectors/BO/add_product_page');
+const {Product} = require('../../selectors/BO/product_page');
+
 
 /**** Example of product data ****
  * var productData = {
@@ -124,7 +126,7 @@ module.exports = {
           test('should search for the category', () => client.waitAndSetValue(AddProductPage.search_categories, productData.categories['1']['name'] + date_time));
           test('should select the category', () => client.waitForVisibleAndClick(AddProductPage.list_categories));
           test('should open all categories', () => client.openAllCategory());
-          if(Object.keys(productData.categories).length > 1) {
+          if (Object.keys(productData.categories).length > 1) {
             Object.keys(productData.categories).forEach(function (key) {
               if (productData.categories[key]["main_category"] && productData.categories[key]["name"] !== 'home') {
                 test('should choose the created category as default', () => {
@@ -271,5 +273,135 @@ module.exports = {
       test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.success_panel, 'Product successfully deleted.'));
       test('should click on "Reset" button', () => client.waitForExistAndClick(AddProductPage.catalog_reset_filter));
     }, 'product/check_product');
-  }
+  },
+
+
+  filterProducts(filter, close) {
+    switch (filter) {
+      case "ID":
+        this.filterByMinAndMaxFilters(filter, Product.id_input, Product.id_column, close, 5, 10);
+        break;
+      case "Name":
+        this.filterByTextFilters(filter, Product.name_input, Product.name_column, 'Mug', close);
+        break;
+        break;
+      case "Reference":
+        this.filterByTextFilters(filter, Product.reference_input, Product.reference_category_column, 'demo', close);
+        break;
+        break;
+      case "Category":
+        this.filterByTextFilters(filter, Product.category_input, Product.reference_category_column, 'Art', close);
+        break;
+      case "Price":
+        this.filterByMinAndMaxFilters(filter, Product.price_input, Product.price_column, close, 18, 25);
+        break;
+      case "Quantity-Max":
+        this.filterByMinThenMaxFilters(filter, Product.quantity_input, Product.quantity_column, 'Quantity', close, 300, 1000);
+        break;
+      case "Quantity-Min":
+        this.filterByMinThenMaxFilters(filter, Product.quantity_input, Product.quantity_column, 'Quantity', close, 300);
+        break;
+      case "Inactive-Status":
+        this.filterBySelectFilters(filter, Product.status_select, Product.status_column.replace("%STATUS%", "action-enabled"), 0, close, "Status");
+        break;
+      case "Active-Status":
+        this.filterBySelectFilters(filter, Product.status_select, Product.status_column.replace("%STATUS%", "action-enabled"), 1, close, "Status");
+        break;
+    }
+  },
+  filterByTextFilters(filter, inputSelector, filterSelector, filterValue, close){
+    scenario('should filter products by "' + filter + '"', client => {
+      test('should set "' + filter + '" input', () => client.waitAndSetValue(inputSelector, filterValue));
+      test('should click on "Search" button', () => client.waitForExistAndClick(Product.search_button));
+      test('should check the result of the filter: "' + filter + '"', () => {
+        return promise
+          .then(() => client.checkProductsNumber('product'))
+          .then(() => {
+            if (numberOfProducts !== 0) {
+              for (let i = 1; i < numberOfProducts + 1; i++) {
+                client.checkFilterResults(filterSelector.replace("%LOWERTEXT%", filterValue.charAt(0).toLowerCase() + filterValue.slice(1)).replace("%UPPERTEXT%", filterValue.charAt(0).toUpperCase() + filterValue.slice(1)), i, filter, Product.search_button);
+              }
+            }
+          })
+          .then(() => client.waitForExistAndClick(Product.reset_link, 2000));
+      })
+    }, 'product/product', close);
+  },
+  filterByMinAndMaxFilters(filter, inputSelector, filterSelector, close, minValue = 0, maxValue = 0){
+    scenario('should filter products by "' + filter + '"', client => {
+      test('should set "Price Min" input', () => client.waitAndSetValue(inputSelector.replace("%TYPE%", "min"), minValue));
+      test('should set "Price Max" input', () => client.waitAndSetValue(inputSelector.replace("%TYPE%", "max"), maxValue));
+      test('should click on "Search" button', () => client.waitForExistAndClick(Product.search_button));
+      test('should check the result of the filter: "' + filter + '"', () => {
+        return promise
+          .then(() => client.checkProductsNumber('product'))
+          .then(() => client.getProductsByFilter(filterSelector))
+          .then(() => {
+            if (numberOfProducts !== 0 && productsByFilter) {
+              for (let i = 1; i < numberOfProducts + 1; i++) {
+                client.checkFilterResults(filterSelector, i, filter, Product.search_button, minValue, maxValue);
+              }
+            }
+          })
+          .then(() => client.waitForExistAndClick(Product.reset_link, 2000));
+      })
+    }, 'product/product', close);
+  },
+  filterBySelectFilters(filter, inputSelector, filterSelector, filterValue, close, filterName){
+    scenario('should filter products by "' + filter + '"', client => {
+      test('should set "Status" select value', () => client.waitAndSelectByValue(inputSelector, filterValue));
+      test('should click on "Search" button', () => client.waitForExistAndClick(Product.search_button));
+      test('should check the result of the filter: "' + filter + '"', () => {
+        return promise
+          .then(() => client.checkProductsNumber('product'))
+          .then(() => {
+            if (numberOfProducts !== 0 && productsByFilter) {
+              for (let i = 1; i < numberOfProducts + 1; i++) {
+                client.checkFilterResults(filterSelector, i, filterName, Product.search_button);
+              }
+            }
+          })
+          .then(() => client.waitForExistAndClick(Product.reset_link, 2000));
+      })
+    }, 'product/product', close);
+  },
+  filterByMinThenMaxFilters(filter, inputSelector, filterSelector, filterName, close, minValue, maxValue = 0){
+    if (maxValue === 0) {
+      scenario('should filter products by "' + filter + '"', client => {
+        test('should set "' + filter + '" input', () => client.waitAndSetValue(inputSelector.replace("%TYPE%", 'min'), minValue));
+        test('should click on "Search" button', () => client.waitForExistAndClick(Product.search_button));
+        test('should check the result of the filter: "' + filter + '"', () => {
+          return promise
+            .then(() => client.checkProductsNumber('product'))
+            .then(() => client.getProductsByFilter(filterSelector))
+            .then(() => {
+              if (numberOfProducts !== 0 && productsByFilter) {
+                for (let i = 1; i < numberOfProducts + 1; i++) {
+                  client.checkFilterResults(filterSelector, i, filterName, Product.search_button, minValue);
+                }
+              }
+            })
+        })
+      }, 'product/product', close);
+    }
+    else {
+      scenario('should filter products by "' + filter + '"', client => {
+        test('should set "' + filter + '" input', () => client.waitAndSetValue(inputSelector.replace("%TYPE%", 'max'), maxValue));
+        test('should click on "Search" button', () => client.waitForExistAndClick(Product.search_button));
+        test('should check the result of the filter: "' + filter + '"', () => {
+          return promise
+            .then(() => client.checkProductsNumber('product'))
+            .then(() => client.getProductsByFilter(Product.quantity_column))
+            .then(() => {
+              if (numberOfProducts !== 0 && productsByFilter) {
+                for (let i = 1; i < numberOfProducts + 1; i++) {
+                  client.checkFilterResults(Product.quantity_column, i, filterName, Product.search_button, minValue, maxValue);
+                }
+              }
+            })
+            .then(() => client.waitForExistAndClick(Product.reset_link, 2000));
+        })
+      }, 'product/product', close);
+    }
+  },
 };

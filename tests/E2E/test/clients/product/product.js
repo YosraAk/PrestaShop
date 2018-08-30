@@ -162,8 +162,7 @@ class Product extends CommonClient {
   getProductPageNumber(selector) {
     return this.client
       .execute(function (selector) {
-        let count = document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
-        return count;
+        return document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
       }, selector)
       .then((count) => {
         global.productsPageNumber = count.value;
@@ -240,6 +239,57 @@ class Product extends CommonClient {
       });
   }
 
+
+  checkProductsNumber(selector) {
+    return this.client
+      .pause(2000)
+      .execute(function (selector) {
+        return document.getElementsByClassName(selector)[0].tBodies[0].children.length;
+      }, selector)
+      .then((count) => {
+        global.numberOfProducts = count.value;
+      });
+  }
+
+  getProductsByFilter(selector) {
+    return this.client
+      .getText(selector).then(function (product) {
+        global.productsByFilter = product;
+      });
+  }
+
+  checkFilterResults(selector, index, filter, searchButtonSelector, minValue = 0, maxValue = 0) {
+    if (index === (numberOfProducts - 1)) {
+      this.client.moveToObject(selector.replace('%INDEX%', numberOfProducts));
+      this.client.pause(1000);
+      this.client.scrollTo(searchButtonSelector);
+    }
+    if ((filter === 'Price' || filter === 'ID') && minValue !== 0 && maxValue !== 0) {
+      if (filter === 'Price') {
+        expect(parseFloat(productsByFilter[index - 1].replace('€', ''))).to.be.gte(minValue);
+        expect(parseFloat(productsByFilter[index - 1].replace('€', ''))).to.be.lte(maxValue);
+        return this.client.pause(0);
+      }
+      else {
+        expect(parseFloat(productsByFilter[index - 1])).to.be.gte(minValue);
+        expect(parseFloat(productsByFilter[index - 1])).to.be.lte(maxValue);
+        return this.client.pause(0);
+      }
+    }
+    else {
+      if (filter === 'Quantity') {
+        expect(parseFloat(productsByFilter[index - 1])).to.be.gte(minValue);
+        if (maxValue !== 0) {
+          expect(parseFloat(productsByFilter[index - 1])).to.be.lte(maxValue);
+          return this.client.pause(0);
+        }
+        return this.client.pause(0);
+      }
+      else {
+        return this.client.isExisting(selector.replace('%INDEX%', index));
+      }
+    }
+  }
 }
 
 module.exports = Product;
