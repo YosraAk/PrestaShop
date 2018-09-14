@@ -90,7 +90,7 @@ class CommonClient {
       });
   }
 
-  isVisibleWithinViewport(selector){
+  isVisibleWithinViewport(selector) {
     return this.client
       .isVisibleWithinViewport(selector);
   }
@@ -109,7 +109,8 @@ class CommonClient {
         if (isVisible) {
           this.client.waitForVisibleAndClick(languageFO.language_option.replace('%LANG', language));
         }
-      });
+      })
+      .pause(2000);
   }
 
   selectLanguage(selector, option, language, id) {
@@ -130,7 +131,7 @@ class CommonClient {
     return this.client.end();
   }
 
-  closeWindow(id){
+  closeWindow(id) {
     return this.client.closeWindow(id);
   }
 
@@ -472,12 +473,6 @@ class CommonClient {
       }, selector);
   }
 
-  middleClick(selector) {
-    return this.client
-      .waitForExist(selector, 9000)
-      .middleClick(selector);
-  }
-
   stringifyNumber(number) {
     let special = ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth'];
     let deca = ['twent', 'thirt', 'fort', 'fift', 'sixt', 'sevent', 'eight', 'ninet'];
@@ -524,8 +519,8 @@ class CommonClient {
       .refresh();
   }
 
-  middleClick(selector, pause = 2000) {
-    if (global.isVisible) {
+  middleClick(selector, globalVisibility = true, pause = 2000) {
+    if(globalVisibility){
       return this.client
         .moveToObject(selector)
         .pause(pause)
@@ -562,7 +557,14 @@ class CommonClient {
       .selectByVisibleText(selector, text)
   }
 
-
+  getResultsBySelector(selector, pause) {
+    return this.client
+      .pause(pause)
+      .getText(selector).then(function (results) {
+        global.numberOfResults = results.length;
+        global.searchResults = results;
+      });
+  }
 }
 
 module.exports = CommonClient;

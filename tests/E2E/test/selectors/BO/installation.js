@@ -2,8 +2,8 @@ module.exports = {
     Installation: {
         language_select: '//*[@id="langList"]',
         next_step_button: '//*[@id="btNext"]',
-        agree_terms_and_conditions_button: '//*[@id="sheet_"]/div[3]/div/label',
-        compatibility_green_box: '//*[@id="sheet_"]/h3',
+        agree_terms_and_conditions_button: '(//*[@id="sheet_"]/div[3]/div/label | //*[@id="set_license"] )',
+        compatibility_green_box: '//*[@id="sheet_system" | @id="sheet_"]/h3[@class="okBlock"]',
         shop_name_input: '//*[@id="infosShop"]',
         country_select: '//*[@id="infosCountry_chosen"]',
         search_country_input: '//*[@id="infosCountry_chosen"]//div[contains(@class,"chosen-search")]/input',
@@ -29,7 +29,7 @@ module.exports = {
         install_addons_modules_step: '//li[@id="process_step_installModulesAddons" and @class="process_step success"]',
         install_theme_step: '//li[@id="process_step_installTheme" and @class="process_step success"]',
         finish_step: '//*[@id="install_process_success"]/div[1]/h2',
-        finished_installation_msg: '//*[@id="install_process_success"]/div[1]/h2',
+        finished_installation_msg: '//*[@id="install_process_success"]',
         prestashop_download_button: '(//a[contains(@class,"btn-success")])[1]',
         download_version:'//*[@id="node-81380"]/div/div[2]/div/div/div/div[3]/a[2]',
     }

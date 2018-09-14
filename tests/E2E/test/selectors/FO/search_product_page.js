@@ -8,6 +8,7 @@ module.exports = {
     feature_name: '//*[@id="product-details"]/section/dl/dt[@class="name"]',
     feature_value: '//*[@id="product-details"]/section/dl/dd',
     attribute_values: '//*[@id="add-to-cart-or-refresh"]/div[@class="product-variants"]//li//span',
-    quick_view_first_product: '//*[@id="js-product-list"]//a[contains(@class,"quick-view")]'
+    quick_view_first_product: '//*[@id="js-product-list"]//a[contains(@class,"quick-view")]',
+    search_results_lists: '//*[@id="index"]/ul/li',
   }
 };

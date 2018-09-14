@@ -1,4 +1,6 @@
 const chai = require('chai');
+require('./globals.webdriverio');
+
 chai.use(require('chai-string'));
 require('../test/globals.webdriverio');
 global.expect = chai.expect;

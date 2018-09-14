@@ -4,7 +4,7 @@ module.exports = {
     click_outside: '//*[@id="product_catalog_list"]/div[2]/div/table/thead/tr[1]/th[3]',
     logout: '#header_logout',
     products_subtab: '#subtab-AdminCatalog',
-    go_to_catalog_button: '#form > div.product-footer.justify-content-md-center > div.col-sm-5.col-lg-7.text-right > div.btn-group.hide.dropdown.show > div > a.dropdown-item.go-catalog.js-btn-save',
+    go_to_catalog_button: '#form a.go-catalog',
     new_product_dropdown_button: '#form > div.product-footer.justify-content-md-center > div.col-sm-5.col-lg-7.text-right > div.btn-group.hide.dropdown.show > div > a.dropdown-item.new-product.js-btn-save',
     more_option_button: '.btn.btn-primary.dropdown-toggle',
     basic_settings_tab: '//*[@id="tab_step1"]/a',

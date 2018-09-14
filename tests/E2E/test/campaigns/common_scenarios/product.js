@@ -38,11 +38,20 @@ const {AddProductPage} = require('../../selectors/BO/add_product_page');
  * };
  */
 module.exports = {
-  createProduct: function (AddProductPage, productData) {
+  createProduct: function (AddProductPage, productData, addDateTime = true, isActive = true) {
     scenario('Create a new product in the Back Office', client => {
       test('should go to "Products" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.products_submenu));
       test('should click on "New Product" button', () => client.waitForExistAndClick(AddProductPage.new_product_button));
-      test('should set the "Name" input', () => client.waitAndSetValue(AddProductPage.product_name_input, productData["name"] + date_time));
+      test('should set the "Name" input', () => {
+        if (addDateTime) {
+          return promise
+            .then(() => client.waitAndSetValue(AddProductPage.product_name_input, productData["name"] + date_time));
+        } else {
+          return promise
+            .then(() => client.waitAndSetValue(AddProductPage.product_name_input, productData["name"]));
+        }
+      });
+
       test('should set the "Reference" input', () => client.waitAndSetValue(AddProductPage.product_reference, productData["reference"]));
       test('should set the "Quantity" input', () => client.waitAndSetValue(AddProductPage.quantity_shortcut_input, productData["quantity"]));
       test('should set the "Price" input', () => client.setPrice(AddProductPage.priceTE_shortcut, productData["price"]));
@@ -149,7 +158,12 @@ module.exports = {
                 client.waitForExistAndClick(AddProductPage.symfony_toolbar)
               }
             })
-            .then(() => client.waitForExistAndClick(AddProductPage.product_online_toggle, 2000));
+            .then(() => {
+              if (isActive) {
+                return promise
+                  .then(() => client.waitForExistAndClick(AddProductPage.product_online_toggle, 2000));
+              }
+            });
         });
         test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 2000));
         test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
@@ -255,10 +269,19 @@ module.exports = {
     }, 'product/product', close);
   },
 
-  deleteProduct(AddProductPage, productData) {
+  deleteProduct(AddProductPage, productData, addDateTime = true) {
     scenario('Delete the created product', client => {
       test('should go to "Catalog" page', () => client.goToSubtabMenuPage(Menu.Sell.Catalog.catalog_menu, Menu.Sell.Catalog.products_submenu));
-      test('should search for the created product', () => client.searchProductByName(productData.name + date_time));
+      test('should search for the created product', () => {
+        if (addDateTime) {
+          return promise
+            .then(() => client.searchProductByName(productData.name + date_time));
+
+        } else {
+          return promise
+            .then(() => client.searchProductByName(productData.name));
+        }
+      });
       test('should click on "Dropdown toggle" button', () => client.waitForExistAndClick(ProductList.dropdown_button.replace('%POS', '1')));
       test('should click on "Delete" action', () => client.waitForExistAndClick(ProductList.action_delete_button.replace('%POS', '1')));
       test('should click on "Delete now" modal button', () => client.waitForVisibleAndClick(ProductList.delete_now_modal_button, 1000));
@@ -284,7 +307,7 @@ module.exports = {
                   .then(() => client.pause(4000))
                   .then(() => client.isVisible(productPage.productLink.replace('%PRODUCTNAME', productData[j].name + date_time)));
               });
-              test('should open the product in new tab if exist', () =>  client.middleClick(productPage.productLink.replace('%PRODUCTNAME', productData[j].name + date_time)));
+              test('should open the product in new tab if exist', () =>  client.middleClick(productPage.productLink.replace('%PRODUCTNAME', productData[j].name + date_time),global.isVisible));
           }
           if (i !== pagination) {
             test('should click on "NEXT" button', () => {

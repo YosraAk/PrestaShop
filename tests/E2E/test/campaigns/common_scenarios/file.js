@@ -126,7 +126,7 @@ module.exports = {
           .then(() => client.waitForExistAndClick(AccessPageBO.shopname, pause))
           .then(() => client.switchWindow(1));
       });
-      test('should set the shop language to "English"', () => client.changeLanguage('english'));
+      test('should set the shop language to "English"', () => client.changeLanguage());
       test('should search for the product', () => client.searchByValue(SearchProductPage.search_input, SearchProductPage.search_button, productName + date_time));
       test('should go to the product page', () => client.waitForExistAndClick(SearchProductPage.product_result_name));
       test('should click on "Attachments" tab', () => client.scrollWaitForExistAndClick(productPage.attachments_tab, 50));
@@ -135,10 +135,11 @@ module.exports = {
     }, 'common_client');
   },
 
-  // if (sortBy === 'id') index = 2;
-  // if (sortBy === 'name') index = 3;
-  // if (sortBy === 'size') index = 5;
-  // if (sortBy === 'associated') index = 6;
+  /** if (sortBy === 'id') index = 2;
+   // if (sortBy === 'name') index = 3;
+   // if (sortBy === 'size') index = 5;
+   // if (sortBy === 'associated') index = 6;
+   **/
   sortFile: function (sortBy, index, filtredTable = false) {
     scenario('Sort files by "' + sortBy.toUpperCase() + '" in the Back Office', client => {
       test('should go to "Files" page', () => {
