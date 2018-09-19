@@ -22,6 +22,7 @@ module.exports = {
     current_page: '//*[@id="js-product-list"]//ul[contains(@class, "page-list")]/li[@class="current"]/a',
     product_discount_details: '//*[@id="main"]//span[contains(@class, "discount")]',
     quick_view_add_to_cart: '//*[@id="add-to-cart-or-refresh"]//button[contains(@data-button-action, "add-to-cart")]',
+    quick_view_close_button: '//*[@id="search"]//button[contains(@class, "close")]',
     //Get the number of products in front office after clicking on "SEE ALL PRODUCTS" link
     products_number: '//*[@id="js-product-list-top"]//p',
     offline_warning_message: '//div[contains(@class, "alert-warning")]//p',
@@ -45,6 +46,7 @@ module.exports = {
     product_section: '//*[@id="main"]/div[1]/div[%I]',
     category_page: '//*[@id="category"]',
     left_column_block: '//*[@id="left-column"]',
-    pagination_block: '//*[@id="js-product-list"]/nav'
+    pagination_block: '//*[@id="js-product-list"]/nav',
+    arrow_down_button: '//*[@id="add-to-cart-or-refresh"]//button[contains(@class,"bootstrap-touchspin-down")]',
   }
 };

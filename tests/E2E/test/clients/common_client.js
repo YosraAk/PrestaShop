@@ -90,7 +90,7 @@ class CommonClient {
       });
   }
 
-  isVisibleWithinViewport(selector){
+  isVisibleWithinViewport(selector) {
     return this.client
       .isVisibleWithinViewport(selector);
   }
@@ -109,7 +109,8 @@ class CommonClient {
         if (isVisible) {
           this.client.waitForVisibleAndClick(languageFO.language_option.replace('%LANG', language));
         }
-      });
+      })
+      .pause(2000);
   }
 
   selectLanguage(selector, option, language, id) {
@@ -130,7 +131,7 @@ class CommonClient {
     return this.client.end();
   }
 
-  closeWindow(id){
+  closeWindow(id) {
     return this.client.closeWindow(id);
   }
 
@@ -358,11 +359,11 @@ class CommonClient {
       .then((ids) => this.client.switchTab(ids[id]));
   }
 
-  isExisting(selector, pause = 0) {
+  isExisting(selector, pause = 0,existing = true) {
     return this.client
       .pause(pause)
       .isExisting(selector)
-      .then((isExisting) => expect(isExisting).to.be.true);
+      .then((isExisting) => expect(isExisting).to.be.equal(existing));
   }
 
   isSelected(selector, pause = 0) {
@@ -536,7 +537,7 @@ class CommonClient {
   }
 
   middleClick(selector, globalVisibility = true, pause = 2000) {
-    if(visibility){
+    if (visibility) {
       return this.client
         .moveToObject(selector)
         .pause(pause)
@@ -546,11 +547,11 @@ class CommonClient {
     }
   }
 
-/*  middleClick(selector,) {
-    return this.client
-      .waitForExist(selector, 9000)
-      .middleClick(selector);
-  }*/
+  /*  middleClick(selector,) {
+   return this.client
+   .waitForExist(selector, 9000)
+   .middleClick(selector);
+   }*/
 
   getParamFromURL(param, pause = 0) {
     return this.client
@@ -579,7 +580,14 @@ class CommonClient {
       .selectByVisibleText(selector, text)
   }
 
-
+  isEnabled(selector,pause =0, enabled = true) {
+    return this.client
+      .pause(pause)
+      .isEnabled(selector)
+      .then((isEnabled) =>{
+        expect(isEnabled).to.be.equal(enabled);
+      })
+  }
 }
 
 module.exports = CommonClient;

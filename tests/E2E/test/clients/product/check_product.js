@@ -5,7 +5,7 @@ class CheckProductBO extends Product {
 
   searchProductByName(productName) {
     return this.client
-      .waitForExistAndClick(AddProductPage.catalogue_filter_by_name_input)
+      .waitForExistAndClick(AddProductPage.catalogue_filter_by_name_input,4000)
       .waitAndSetValue(AddProductPage.catalogue_filter_by_name_input, productName)
       .waitForExistAndClick(AddProductPage.catalogue_submit_filter_button);
   }
