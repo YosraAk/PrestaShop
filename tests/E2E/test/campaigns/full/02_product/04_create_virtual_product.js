@@ -214,15 +214,13 @@ scenario('Create virtual Product in the Back Office', client => {
     });
     test('should click on "Create" button', () => client.scrollWaitForExistAndClick(AddProductPage.category_create_btn));
     test('should check that the "Category" is well created', () => client.isExisting(AddProductPage.category_checkbox.replace('%S', data.virtual.new_category_name + date_time), 4000));
-    test('should click on "Delete" icon of the created category', () => client.scrollWaitForExistAndClick(AddProductPage.delete_category_icon.replace('%I', 2)));
+    test('should click on "Delete" icon of the created category', () => client.scrollWaitForExistAndClick(AddProductPage.delete_category_icon.replace('%I', 2),0,2000));
     //@TODO check that the category is well unchecked in the expanded list
 
     //END @TODO
     test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 3000));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
-    //test('should click on "Collapse" button', () => client.scrollWaitForExistAndClick(AddProductPage.category_collapse_button, 150, 2000));
     test('should click on "Expand" button', () => client.scrollWaitForExistAndClick(AddProductPage.category_expand_button, 150, 5000));
-
     test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 3000));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
   }, 'product/product');
@@ -300,7 +298,7 @@ scenario('Create virtual Product in the Back Office', client => {
       test('should click on "Product Details" tab', () => client.scrollWaitForExistAndClick(productPage.product_tab_list.replace('%I', 1), 0, 5000));
       test('should check that the "Availability date" is equal to "' + common.getCustomDate(30) + '"', () => {
         return promise
-          .then(() => client.scrollTo(productPage.product_availability_date))
+          .then(() => client.scrollTo(productPage.product_availability_date,0,2000))
           .then(() => client.checkTextValue(productPage.product_availability_date, common.getCustomDate(30), 'equal', 2000));
       });
       test('should go back to the Back Office', () => client.switchWindow(0));
@@ -426,6 +424,7 @@ scenario('Create virtual Product in the Back Office', client => {
     test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
     test('should go to the Front Office', () => client.switchWindow(1));
+    test('should set the shop language to "English"', () => client.changeLanguage());
     test('should search for the product', () => client.searchByValue(SearchProductPage.search_input, SearchProductPage.search_button, data.virtual.name + date_time));
     test('should go to the product page', () => client.waitForExistAndClick(SearchProductPage.product_result_name, 2000));
     test('should check that the "Discount" is equal to "Save 10%"', () => client.checkTextValue(CheckoutOrderPage.product_discount_details, 'SAVE 10%'));
@@ -515,6 +514,7 @@ scenario('Create virtual Product in the Back Office', client => {
     test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
     test('should go to the Front Office', () => client.switchWindow(1));
+    test('should set the shop language to "English"', () => client.changeLanguage());
     test('should check that the product price is equal to "€9.00"', () => client.checkTextValue(productPage.product_price, '€9.00', 'equal', 2000));
     test('should verify that the discount does not exist', () => client.isNotExisting(CheckoutOrderPage.product_discount_details));
     test('should login successfully in the Front Office', () => client.signInFO(AccessPageFO));
@@ -536,6 +536,7 @@ scenario('Create virtual Product in the Back Office', client => {
     test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button));
     test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
     test('should go to the Front Office', () => client.switchWindow(1));
+    test('should set the shop language to "English"', () => client.changeLanguage());
     test('should check that the "Quantity" is equal to "3"', () => client.checkTextValue(productPage.product_discounts_table.replace('%R', 1).replace('%D', 1), '3'));
     test('should check that the "Discount" is equal to "5%"', () => client.checkTextValue(productPage.product_discounts_table.replace('%R', 1).replace('%D', 2), '5%'));
     test('should check that the "You Save" is equal to "Up to €1.35"', () => client.checkTextValue(productPage.product_discounts_table.replace('%R', 1).replace('%D', 3), 'Up to €1.35'));
