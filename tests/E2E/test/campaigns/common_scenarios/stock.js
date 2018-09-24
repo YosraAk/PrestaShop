@@ -28,12 +28,12 @@ module.exports = {
     }
   },
 
-  checkMovementHistory: function (client, Menu, Movement, movementIndex, itemNumber, option, type, reference) {
+  checkMovementHistory: function (client, Menu, Movement, movementIndex, itemNumber, option, type, reference = "") {
     test('should go to "Movements" tab', () => {
       return promise
         .then(() => client.goToStockMovements(Menu, Movement))
         .then(() => client.pause(5000));
     });
-    test('should check movement history', () => client.checkMovement(Movement, movementIndex, itemNumber, option, type, reference));
+    test('should check movement history', () => client.checkMovement(Movement, movementIndex, itemNumber, option, type,reference));
   }
 };

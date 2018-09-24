@@ -29,14 +29,13 @@ scenario('Create Standard Product in the Back Office', client => {
     test('should choose the created category as default', () => {
       return promise
         .then(() => client.waitForVisible(AddProductPage.created_category))
-        .then(() => client.waitForExistAndClick(AddProductPage.home_delete_button));
+        .then(() => client.scrollWaitForExistAndClick(AddProductPage.home_delete_button))
     });
-    test('should open all categories', () => client.openAllCategories());
+  //  test('should open all categories', () => client.openAllCategories()); //TODO : verify if we should close all categories before opening them
     test('should check the existence of the first category Radio button', () => client.checkCategoryRadioButton(4));
     test('should check the existence of the second category Radio button', () => client.checkCategoryRadioButton(5));
     test('should check the existence of the third Radio button', () => client.checkCategoryRadioButton(7));
     test('should check the existence of the fourth Radio button', () => client.checkCategoryRadioButton(9));
-    test('should choose the created category as default', () => client.waitForExistAndClick(AddProductPage.home_delete_button));
     test('should click on "ADD A BRAND"', () => client.scrollWaitForExistAndClick(AddProductPage.product_add_brand_btn, 50));
     test('should select brand', () => {
       return promise

@@ -219,7 +219,8 @@ module.exports = {
     product_pack_items: '//*[@id="form_step1_inputPackItems-data"]',
     add_products_to_pack: '//*[@id="js_form_step1_inputPackItems"]/div',
     attribute_group_name: '//*[@id="attributes-list"]//a[text()[contains(.,"%NAME")]]',
-    attribute_value_checkbox: '//*[@id="attribute-group-%ID"]/div/div[%S]//label'
+    attribute_value_checkbox: '//*[@id="attribute-group-%ID"]/div/div[%S]//label',
+
   },
   ProductList: {
     product_id: '//*[@id="product_catalog_list"]//tr[%ID]/td[2]/label',
@@ -244,6 +245,6 @@ module.exports = {
     product_category: '//*[@id="product_catalog_list"]//div//tr[%I]/td[6]',
     reset_button: '//*[@id="product_catalog_list"]//tr[2]/th[9]/button[@name="products_filter_reset"]',
     status_filter: '//*[@id="product_filter_column_active"]//select[@name=\'filter_column_active\']',
-    item_per_page_select: '//*[@id="paginator_select_page_limit"]'
+    item_per_page_select: '//*[@id="paginator_select_page_limit"]',
   }
 };

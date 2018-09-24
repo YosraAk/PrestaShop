@@ -95,6 +95,7 @@ module.exports = {
           });
           test('should click on "Generate" button', () => client.scrollWaitForExistAndClick(AddProductPage.variations_generate));
           test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
+          test('should get the combination data', () => client.getCombinationData(1));
           test('should select all the generated variations', () => client.waitForVisibleAndClick(AddProductPage.var_selected));
           test('should set the "Variations quantity" input', () => {
             return promise

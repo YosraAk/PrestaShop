@@ -340,8 +340,7 @@ class CommonClient {
   }
 
   waitForVisible(selector, timeout = 90000) {
-    return this.client
-      .waitForVisible(selector, timeout);
+    return this.client.waitForVisible(selector, timeout);
   }
 
   accessToBO(selector) {
