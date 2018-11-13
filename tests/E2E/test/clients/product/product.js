@@ -162,8 +162,9 @@ class Product extends CommonClient {
     }
   }
 
-  getProductPageNumber(selector) {
+  getProductPageNumber(selector, pause = 0) {
     return this.client
+      .pause(pause)
       .execute(function (selector) {
         return document.getElementById(selector).getElementsByTagName("tbody")[0].children.length;
       }, selector)
@@ -250,7 +251,7 @@ class Product extends CommonClient {
   getProductName(selector, i) {
     return this.client
       .getText(selector).then(function (name) {
-        global.productInfo.push({'name':name, 'status':'false'})
+        global.productInfo.push({'name': name, 'status': 'false'})
       });
   }
 
@@ -268,8 +269,8 @@ class Product extends CommonClient {
   }
 
   checkFeatureValue(predefinedValueSelector, customValueSelector, featureData) {
-    if(global.isVisible) {
-      if(featureData.predefined_value !== '') {
+    if (global.isVisible) {
+      if (featureData.predefined_value !== '') {
         return this.client
           .isSelected(predefinedValueSelector)
           .then((value) => expect(value).to.be.equal(true));

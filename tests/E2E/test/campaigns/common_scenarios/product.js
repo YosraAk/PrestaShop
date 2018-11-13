@@ -499,5 +499,30 @@ module.exports = {
           }
         });
     });
+  },
+  async checkPaginationThenCreateProduct(client, productData) {
+    await client.getProductPageNumber('product_catalog_list', 5000);
+    let productNumber = await 20 - global.productsNumber;
+    if (productNumber !== 0) {
+      for (let i = 0; i < productNumber + 1; i++) {
+        await client.waitForExistAndClick(Menu.Sell.Catalog.products_submenu, 1000);
+        await client.waitForExistAndClick(AddProductPage.new_product_button, 2000);
+        await client.waitAndSetValue(AddProductPage.product_name_input, productData["name"] + date_time);
+        await client.waitAndSetValue(AddProductPage.product_reference, productData["reference"]);
+        await client.waitAndSetValue(AddProductPage.quantity_shortcut_input, productData["quantity"]);
+        await client.setPrice(AddProductPage.priceTE_shortcut, productData["price"]);
+        await client.uploadPicture(productData["image_name"], AddProductPage.picture);
+        if (global.ps_mode_dev) {
+          await client.isVisible(AddProductPage.symfony_toolbar);
+          if (global.isVisible) {
+            await client.waitForExistAndClick(AddProductPage.symfony_toolbar)
+          }
+        }
+        await client.waitForExistAndClick(AddProductPage.product_online_toggle, 1000);
+        await client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.');
+        await client.waitForExistAndClick(AddProductPage.save_product_button, 4000);
+        await client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.');
+      }
+    }
   }
 };
