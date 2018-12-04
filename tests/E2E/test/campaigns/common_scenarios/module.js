@@ -146,7 +146,7 @@ module.exports = {
       test('should search for the module "' + moduleName + '"', () => {
         return promise
           .then(() => client.waitAndSetValue(ModulePage.module_selection_input, moduleTechName))
-          .then(() => client.waitForExistAndClick(ModulePage.modules_search_button));
+          .then(() => client.waitForExistAndClick(ModulePage.selection_search_button));
       });
       test('should click on "Read more" link', () => client.waitForExistAndClick(ModulePage.ReadMoreModal.read_more_link.replace("%moduleTechName", moduleTechName)));
       test('should check that the modal is well opened', () => client.waitForVisible(ModulePage.ReadMoreModal.overview_content.replace("%moduleTechName", moduleTechName)));

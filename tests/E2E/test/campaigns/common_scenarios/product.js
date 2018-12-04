@@ -94,10 +94,24 @@ module.exports = {
           });
           test('should click on "Generate" button', () => client.scrollWaitForExistAndClick(AddProductPage.variations_generate));
           test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
-          test('should get the combination data', () => client.getCombinationData(1));
-          test('should select all the generated variations', () => client.waitForVisibleAndClick(AddProductPage.var_selected));
+          // should refresh the page because of the issue here: https://github.com/PrestaShop/PrestaShop/issues/9826
+          test('should refresh the page if "Debug" mode is active because of the issue here  "#9826" ', () => {
+            return promise
+              .then(() => client.isVisible(AddProductPage.var_selected))
+              .then(() => {
+                if (global.ps_mode_dev && !isVisible) {
+                  client.refresh();
+                } else {
+                  client.pause(0);
+                }
+              })
+              .then(() => client.getCombinationData(1, 5000));
+          });
+
+          test('should select all the generated variations', () => client.waitForVisibleAndClick(AddProductPage.var_selected), 2000);
           test('should set the "Variations quantity" input', () => {
             return promise
+              .then(() => client.pause(4000))
               .then(() => client.setVariationsQuantity(AddProductPage, productData.attribute[1].variation_quantity))
               .then(() => {
                 if (global.ps_mode_dev) {
@@ -171,7 +185,7 @@ module.exports = {
         test('should switch the product online', () => client.waitForExistAndClick(AddProductPage.product_online_toggle, 3000));
         test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
         test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 7000));
-        test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
+        test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.', 'equal', 2000));
       }, 'product/product');
 
     }, 'product/product');
