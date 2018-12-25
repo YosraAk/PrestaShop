@@ -90,6 +90,7 @@ scenario('Check the sort of products in the Back Office', client => {
           .then(() => client.search(ProductList.catalogue_filter_by_category_input, 'art'))
           .then(() => client.getProductPageNumber('product_catalog_list'));
       });
+
       commonProduct.productList(AddProductPage, ProductList.products_column.replace('%COL', 6), 'category', client);
     }, 'product/product');
     scenario('Search products by "Price"', client => {
