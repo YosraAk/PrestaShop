@@ -1,3 +1,8 @@
+/**
+ * This script is based on the scenario described in this test link
+ * [id="PS-34"][Name="Export shopping carts"]
+ * http://testlink.prestashop.net/linkto.php?tprojectPrefix=PS&item=testcase&id=PS-34
+ **/
 const {Menu} = require('../../../selectors/BO/menu.js');
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {ShoppingCart} = require('../../../selectors/BO/order');

@@ -1,3 +1,7 @@
+/**
+ * This script is based on the scenario described in this video
+ * https://drive.google.com/open?id=0BxY1cJAfxUUeSjc2bEl0TDNjcFU
+ **/
 const {AccessPageFO} = require('../../../selectors/FO/access_page');
 const common_scenarios = require('../../common_scenarios/order');
 

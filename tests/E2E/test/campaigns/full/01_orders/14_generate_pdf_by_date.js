@@ -1,3 +1,8 @@
+/**
+ * This script is based on the scenario described in this test link
+ * [id="PS-89"][Name="Generate a PDF by date"]
+ * http://testlink.prestashop.net/linkto.php?tprojectPrefix=PS&item=testcase&id=PS-89
+ **/
 const {Menu} = require('../../../selectors/BO/menu.js');
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {AccessPageFO} = require('../../../selectors/FO/access_page');

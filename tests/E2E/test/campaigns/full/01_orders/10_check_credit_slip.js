@@ -1,3 +1,8 @@
+/**
+ * This script is based on the scenario described in this test link
+ * [id="PS-92"][Name="Check credit slips"]
+ * http://testlink.prestashop.net/linkto.php?tprojectPrefix=PS&item=testcase&id=PS-92
+ **/
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {AccessPageFO} = require('../../../selectors/FO/access_page');
 const commonOrder = require('../../common_scenarios/order');

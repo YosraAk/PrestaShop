@@ -1,3 +1,4 @@
+/*********************[TestLink][id="PS-20"][Name="Onboarding"]********************************/
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {OnBoarding} = require('../../../selectors/BO/onboarding.js');
 const {AddProductPage} = require('../../../selectors/BO/add_product_page');

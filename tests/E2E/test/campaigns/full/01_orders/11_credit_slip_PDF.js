@@ -1,3 +1,8 @@
+/**
+ * This script is based on the scenario described in this test link
+ * [id="PS-93"][Name="Credit slips PDF"]
+ * http://testlink.prestashop.net/linkto.php?tprojectPrefix=PS&item=testcase&id=PS-93
+ **/
 const {Menu} = require('../../../selectors/BO/menu.js');
 const {CreditSlip} = require('../../../selectors/BO/order');
 const commonOrder = require('../../common_scenarios/order');

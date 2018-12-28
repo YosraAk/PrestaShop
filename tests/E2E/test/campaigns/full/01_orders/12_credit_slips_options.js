@@ -1,9 +1,14 @@
+/**
+ * This script is based on the scenario described in this test link
+ * [id="PS-94"][Name="Credit slips options"]
+ * http://testlink.prestashop.net/linkto.php?tprojectPrefix=PS&item=testcase&id=PS-94
+ **/
 const {CreditSlip} = require('../../../selectors/BO/order');
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {OrderPage} = require('../../../selectors/BO/order');
 const {Menu} = require('../../../selectors/BO/menu.js');
 let promise = Promise.resolve();
-require('./10_credit_slip');
+require('./10_check_credit_slip');
 scenario('Generate and check a Credit slips options ', () => {
   scenario('Open the browser and login successfully in the Back Office ', client => {
     test('should open the browser', () => client.open());

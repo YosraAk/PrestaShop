@@ -1,3 +1,7 @@
+/**
+ * This script is based on the scenario described in this video
+ * https://drive.google.com/open?id=0BxY1cJAfxUUeN21sUlgwUHk1Wkk
+ **/
 const {AccessPageBO} = require('../../../selectors/BO/access_page');
 const {OrderPage} = require('../../../selectors/BO/order');
 const {CreateOrder} = require('../../../selectors/BO/order');
