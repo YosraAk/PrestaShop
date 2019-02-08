@@ -40,9 +40,10 @@ class Product extends CommonClient {
       .waitForExistAndClick(AddProductPage.catalog_second_element_radio);
   }
 
-  associatedFile() {
+  associatedFile(id) {
+    console.log(AddProductPage.virtual_associated_file.replace('%ID', id))
     return this.client
-      .waitForExistAndClick(AddProductPage.virtual_associated_file)
+      .waitForExistAndClick(AddProductPage.virtual_associated_file.replace('%ID', id), 1000)
       .pause(2000);
   }
 

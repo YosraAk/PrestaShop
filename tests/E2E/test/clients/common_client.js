@@ -349,6 +349,7 @@ class CommonClient {
    * @returns {*}
    */
   async checkFile(folderPath, fileName, pause = 2000) {
+    console.log(folderPath+fileName)
     await fs.stat(folderPath + fileName, function (err, stats) {
       err === null && stats.isFile() ? global.existingFile = true : global.existingFile = false;
     });
