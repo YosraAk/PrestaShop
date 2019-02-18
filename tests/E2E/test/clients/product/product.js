@@ -344,6 +344,16 @@ class Product extends CommonClient {
       });
   }
 
+  checkCheckboxStatus(selector, checkedValue) {
+    return this.client
+      .pause(2000)
+      .execute(function (selector) {
+        return (document.querySelector(selector).checked);
+      }, selector)
+      .then((status) => {
+        expect(status.value).to.equal(checkedValue)
+      });
+  }
 
 }
 

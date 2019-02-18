@@ -69,7 +69,9 @@ module.exports = {
     attached_file_name: "File to download",
     allowed_number_to_download: "10",
     expiration_date: common.getCustomDate(30),
-    number_of_days: '10'
+    number_of_days: '10',
+    picture_1: '1.png',
+    picture_2: 'image_test.jpg',
   },
 
   common: {

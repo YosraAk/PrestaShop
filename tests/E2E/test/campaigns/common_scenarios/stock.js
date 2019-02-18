@@ -1,6 +1,6 @@
 let promise = Promise.resolve();
 module.exports = {
-  changeStockProductQuantity: function (client, Stock, orderProduct, itemNumber, saveBtn, option = "add", productRef = "") {
+  changeStockProductQuantity: function (client, Stock, orderProduct, itemNumber, saveBtn, option = "add") {
     test('should change the product quantity', () => {
       promise
         .then(() => client.getTextInVar(Stock.product_quantity.replace('%O', orderProduct), "productQuantity"))
@@ -43,11 +43,7 @@ module.exports = {
         return promise
           .then(() => client.waitForVisible(Stock.success_hidden_panel))
           .then(() => {
-            if (productRef) {
-              client.checkTextValue(Stock.success_hidden_panel, productRef + ': Stock successfully updated', 'contain');
-            } else {
               client.checkTextValue(Stock.success_hidden_panel, 'Stock successfully updated', 'contain');
-            }
           });
       });
     }

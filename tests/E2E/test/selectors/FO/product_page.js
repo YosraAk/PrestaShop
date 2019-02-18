@@ -54,6 +54,15 @@ module.exports = {
     product_feature_text: '#product-details > section dt:%B-of-type',
     product_tax_label: '//*[@id="main"]//div[@class="tax-shipping-delivery-label" and (contains(text(),"Tax excluded") or contains(text(),"Tax included") )] ',
     file_description: '//*[@id="attachments"]/section/div/p',
-    pagination_number_link: '//*[@id="js-product-list"]//nav//a[contains(text(), "%NUM")]'
+    pagination_number_link: '//*[@id="js-product-list"]//nav//a[contains(text(), "%NUM")]',
+    product_online_only_flag: '//*[@id="content"]//li[contains(@class, "online-only")]',
+    product_image: '//*[@id="js-product-list"]//img[contains(@src,"%S")]',
+    product_condition: '//*[@id="product-details"]/div[@class="product-condition"]/span',
+    product_customization_message: '#main li:nth-of-type(%I) textarea.product-message',
+    save_customization_button: '//*[@id="main"]//button[@name="submitCustomizedData"]',
+    product_customization_file: '(//*[contains(@class, "file-input")])[%I]',
+    attachment_title: '//*[@id="attachments"]//div[@class="attachment"]//a',
+    attachment_description: '//*[@id="attachments"]//div[@class="attachment"]//p',
+    delete_shopping_cart_item: '//*[@id="main"]//a[@class="remove-from-cart"]'
   }
 };

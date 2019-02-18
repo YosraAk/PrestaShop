@@ -43,14 +43,14 @@ scenario('Update quantity of a product', () => {
 
   scenario('Increase the quantity for one product using the arrow down button and save by the "Check" sign', client => {
     stockCommonScenarios.goToStockPageAndSortByProduct(client, Menu, Stock);
-    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', 'add', productData[2].reference);
+    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn');
     stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, +5, 'equal', 'changed', Stock, 1);
     stockCommonScenarios.checkMovementHistory(client, Menu, Movement, 1, "5", "+", "Employee Edition", productData[2].reference, dateSystem, productData[2].name + date_time);
   }, 'stocks');
 
   scenario('Decrease the quantity for one product using the arrow down and save by the "Apply new quantity" button', client => {
     stockCommonScenarios.goToStockPageAndSortByProduct(client, Menu, Stock);
-    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', '', productData[2].reference);
+    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', '');
     test('should click on "Apply new quantity" button', () => client.waitForExistAndClick(Stock.group_apply_button));
     stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, -5, 'equal', 'changed', Stock, 1);
     test('should check the success panel', () => {
@@ -83,7 +83,7 @@ scenario('Update quantity of a product', () => {
 
   scenario('Enter a negative quantity with the arrow down for one product ', client => {
     stockCommonScenarios.goToStockPageAndSortByProduct(client, Menu, Stock);
-    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', "remove", productData[2].reference);
+    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', "remove");
     stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, -5, 'equal', 'changed', Stock, 1);
     stockCommonScenarios.checkMovementHistory(client, Menu, Movement, 1, "5", "-", "Employee Edition", productData[2].reference, dateSystem, productData[2].name + date_time);
   }, 'stocks');
@@ -141,7 +141,7 @@ scenario('Update quantity of a product', () => {
   scenario('Change the quantity for several lines  and save by the "Apply new quantity" button', client => {
     stockCommonScenarios.goToStockPageAndSortByProduct(client, Menu, Stock, true);
     for (let i = 1; i <= 3; i++) {
-      stockCommonScenarios.changeStockProductQuantity(client, Stock, i, 5, '', 'add', productData[i - 1].reference);
+      stockCommonScenarios.changeStockProductQuantity(client, Stock, i, 5, '');
     }
     test('should click on "Apply new quantity" button', () => client.waitForExistAndClick(Stock.group_apply_button));
     test('should check the success panel', () => {
