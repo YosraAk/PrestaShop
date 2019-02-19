@@ -34,7 +34,6 @@ module.exports = {
         }
         await client.waitForExistAndClick(Stock.save_product_quantity_button.replace('%I', 1));
       });
-
       /**
        * This scenario is based on the bug described in this ticket
        * https://github.com/PrestaShop/PrestaShop/issues/12387
@@ -43,7 +42,7 @@ module.exports = {
         return promise
           .then(() => client.waitForVisible(Stock.success_hidden_panel))
           .then(() => {
-              client.checkTextValue(Stock.success_hidden_panel, 'Stock successfully updated', 'contain');
+            client.checkTextValue(Stock.success_hidden_panel, 'Stock successfully updated', 'contain');
           });
       });
     }

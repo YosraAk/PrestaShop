@@ -67,6 +67,7 @@ module.exports = {
     product_customization_modal: '(//div[contains(@class,"product-customization-line")]/div[%R])[%I]',
     product_customization_modal_image: '//div[contains(@class,"product-customization-line")]//img',
     product_customization_close_modal_button: '(//button[@class="close"])[%I]',
+    customization_error_message: '//*[@id="notifications"]//article[contains(@class,"alert-danger")]/ul/li',
     modal_product_picture: '//*[@id="blockcart-modal"]//img[@class="product-image"]',
     modal_product_name: '//*[@id="blockcart-modal"]//h6[contains(@class,"product-name")]',
     modal_product_unit_price: '(//*[@id="blockcart-modal"]//p[1])[1]',
@@ -111,6 +112,6 @@ module.exports = {
     add_message_block: '//*[@id="content"]/section[@class="order-message-form box"]',
     message_input: '//*[@id="content"]//textarea[@name="msgText"]',
     send_button: '//*[@id="content"]//button[@name="submitMessage"]',
-    success_panel: '//*[@id="notifications"]//article[@class="alert alert-success"]'
+    success_panel: '//*[@id="notifications"]//article[@class="alert alert-success"]',
   }
 };

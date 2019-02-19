@@ -50,14 +50,14 @@ scenario('Update quantity of a product', () => {
 
   scenario('Decrease the quantity for one product using the arrow down and save by the "Apply new quantity" button', client => {
     stockCommonScenarios.goToStockPageAndSortByProduct(client, Menu, Stock);
-    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, 'checkBtn', '');
+    stockCommonScenarios.changeStockProductQuantity(client, Stock, 1, 5, '', '');
     test('should click on "Apply new quantity" button', () => client.waitForExistAndClick(Stock.group_apply_button));
-    stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, -5, 'equal', 'changed', Stock, 1);
     test('should check the success panel', () => {
       return promise
         .then(() => client.waitForVisible(Stock.success_hidden_panel))
-        .then(() => client.checkTextValue(Stock.success_hidden_panel, productData[2].reference + ': Stock successfully updated', 'contain'));
+        .then(() => client.checkTextValue(Stock.success_hidden_panel,'Stock successfully updated', 'contain'));
     });
+    stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, -5, 'equal', 'changed', Stock, 1);
     stockCommonScenarios.checkMovementHistory(client, Menu, Movement, 1, "5", "-", "Employee Edition", productData[2].reference, dateSystem, productData[2].name + date_time);
   }, 'stocks');
 
@@ -68,7 +68,7 @@ scenario('Update quantity of a product', () => {
     test('should check the success panel', () => {
       return promise
         .then(() => client.waitForVisible(Stock.success_hidden_panel))
-        .then(() => client.checkTextValue(Stock.success_hidden_panel, productData[2].reference + ':Stock successfully updated', 'contain'));
+        .then(() => client.checkTextValue(Stock.success_hidden_panel,'Stock successfully updated', 'contain'));
     });
     stockCommonScenarios.checkAvailableAndPhysicalQuantity(client, +15, 'equal', 'changed', Stock, 1);
     stockCommonScenarios.checkMovementHistory(client, Menu, Movement, 1, "15", "+", "Employee Edition", productData[2].reference, dateSystem, productData[2].name + date_time);
@@ -147,7 +147,7 @@ scenario('Update quantity of a product', () => {
     test('should check the success panel', () => {
       return promise
         .then(() => client.waitForVisible(Stock.success_hidden_panel))
-        .then(() => client.checkTextValue(Stock.success_hidden_panel, productData[2].reference + ':Stock successfully updated', 'contain'));
+        .then(() => client.checkTextValue(Stock.success_hidden_panel,'Stock successfully updated', 'contain'));
     });
     for (let i = 1; i <= 3; i++) {
       if (i === 1) {
@@ -170,7 +170,7 @@ scenario('Update quantity of a product', () => {
     test('should check the success panel', () => {
       return promise
         .then(() => client.waitForVisible(Stock.success_hidden_panel))
-        .then(() => client.checkTextValue(Stock.success_hidden_panel, "1 products' Stock successfully updated", 'contain'));
+        .then(() => client.checkTextValue(Stock.success_hidden_panel, "Stock successfully updated", 'contain'));
     });
     for (let i = 1; i <= 3; i++) {
       if (i === 2) {

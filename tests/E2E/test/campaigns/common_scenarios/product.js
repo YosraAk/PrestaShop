@@ -847,7 +847,17 @@ module.exports = {
 
         // Verify EAN ISBN et UPC only for products with combination
         this.fillCustomizationBlock(client);
+
         test('should go back to the Back Office', () => client.switchWindow(0));
+
+
+
+        test('should check that there is no "attach a new file" is displayed', async() => {
+        await client.isVisible(AddProductPage.attached_file_table);
+          if(global.isVisible === false){
+           await client.isExisting(AddProductPage.no_attached_file_message);
+          }
+        });
         test('should check that the "attach a new file" is displayed', () => client.isExisting(AddProductPage.attached_file_table));
         test('should click on "ATTACH A NEW FILE"', () => client.scrollWaitForExistAndClick(AddProductPage.options_add_new_file_button, 50, 2000));
         test('should add a file', () => client.addFile(AddProductPage.options_select_file, 'image_test.jpg'), 50);
@@ -856,6 +866,9 @@ module.exports = {
         test('should add the previous added file', () => client.scrollWaitForExistAndClick(AddProductPage.options_file_add_button, 50));
         test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 5000));
         test('should check that the success alert message is well displayed', () => client.waitForExistAndClick(AddProductPage.close_validation_button));
+
+
+
         test('should go to the Front Office', () => client.switchWindow(1));
         test('should click on "Attachments" tab', () => client.waitForExistAndClick(productPage.product_tab_list.replace('%I', 2)));
         test('should check that the "Attachment title" is equal to "title"', async () => {
@@ -948,7 +961,16 @@ module.exports = {
     test('should click on "Save customization" button', () => client.waitForExistAndClick(productPage.save_customization_button));
     test('should check that the "Product message" textarea is required', () => client.checkElementValidation(productPage.product_customization_message.replace('%I', 2), 'Veuillez renseigner ce champ.', 'contain'));
     test('should set the "Product message" textarea', () => client.waitAndSetValue(productPage.product_customization_message.replace('%I', 2), 'plop'));
+
+    test('should upload a file for product customization', () => client.uploadPicture('prestashop_developer_guide.pdf', productPage.product_customization_file.replace('%I', 2), 'file11'));
+    test('should click on "Save customization" button', () => client.waitForExistAndClick(productPage.save_customization_button));
+    test('should check error message', () => client.isExisting(CheckoutOrderPage.customization_error_message, 2000));
+
+    test('should set the "Product message" textarea', () => client.waitAndSetValue(productPage.product_customization_message.replace('%I', 2), 'plop'));
     test('should upload a file for product customization', () => client.uploadPicture('image_test.jpg', productPage.product_customization_file.replace('%I', 2), 'file11'));
+
+
+
     test('should click on "Save customization" button', () => client.waitForExistAndClick(productPage.save_customization_button));
     test('should click on "ADD TO CART" button', () => client.waitForExistAndClick(CheckoutOrderPage.add_to_cart_button));
     test('should click on "Proceed to checkout" modal button', () => client.waitForVisibleAndClick(CheckoutOrderPage.proceed_to_checkout_modal_button));

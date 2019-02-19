@@ -195,6 +195,7 @@ module.exports = {
     supplier_reference_input: '//*[@id="form_step6_supplier_combination_%V_0_supplier_reference"]',
     supplier_price_input: '//*[@id="form_step6_supplier_combination_%V_0_product_price"]',
     supplier_currency_select: '//*[@id="form_step6_supplier_combination_%V_0_product_price_currency"]',
+    no_attached_file_message: '//*[@id="step6"]//div[contains(@class,"js-options-no-attachments")]',
     get catalog_product_name() {
       return this.catalog_product_table + ' > tbody tr:first-child > td:nth-child(4) > a';
     },
