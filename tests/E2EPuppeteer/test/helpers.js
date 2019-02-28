@@ -1,9 +1,9 @@
 const chai = require('chai');
 chai.use(require('chai-string'));
-require('../test/globals');
 global.expect = chai.expect;
+require('./globals');
 
-const takeScreenshot = err => this.client.takeScreenshot().then(() => {
+const takeScreenshot = async err => await this.client.screenshot().then(() => {
   throw err;
 });
 
@@ -18,6 +18,9 @@ global.scenario = (name, tests, clientName, close = false) =>
     before(() => this.client = client);
     tests(client);
     if (close) {
-      after(() => this.client.close());
+      after(async () => {
+        await this.client.stopTracing();
+        await this.client.close();
+      });
     }
   });

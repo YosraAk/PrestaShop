@@ -43,10 +43,10 @@ module.exports = {
     },
     Improve: {
       Modules: {
-        modules_menu: '//*[@id="subtab-AdminParentModulesSf"]/a',
+        modules_menu: '#subtab-AdminParentModulesSf',
         modules_manager_submenu: '#subtab-AdminModulesSf',
         modules_catalog_submenu: '#subtab-AdminParentModulesCatalog > a',
-        installed_modules_tabs: '//*[@id="subtab-AdminModulesManage"]',
+        installed_modules_tabs: '#subtab-AdminModulesManage',
         catalog_tab: '//*[@id="subtab-AdminModulesCatalog"]',
         modules_selections_submenu: '#subtab-AdminAddonsCatalog',
         selection_tab: '#subtab-AdminAddonsCatalog',

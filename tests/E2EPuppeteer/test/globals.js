@@ -12,6 +12,7 @@ if (!/^https?:\/\//i.test(siteUrl)) {
 }
 global.URL = siteUrl;
 
+global.dateTime = new Date().getTime();
 global.install_language = argv.LANGUAGE || 'en';
 global.install_country = argv.COUNTRY || 'france';
 global.db_server = argv.DB_SERVER || 'lolcahost';

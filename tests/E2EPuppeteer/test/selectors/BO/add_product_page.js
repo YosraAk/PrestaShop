@@ -215,6 +215,7 @@ module.exports = {
     delete_confirmation_button: '//*[@id="confirmation_modal"]//button[contains(text(), "%BUTTON")]',
     confirmation_modal_content: '//*[@id="confirmation_modal"]//div[@class="modal-body"]',
     symfony_toolbar: '//*[contains (@id, "sfToolbarMainContent")]/a',
+    symfony_toolbar_block: '[id*=sfToolbarMainContent][style*="block"]',
     summary_tinymce_buttons: '//*[@id="description_short"]//div[contains(@class, "mce-toolbar-grp")]',
     combination_table: '//*[@id="accordion_combinations"]',
     home_delete_button: '//*[@id="ps_categoryTags"]/span[1]/a',

@@ -5,7 +5,10 @@ require('../../globals.js');
 
 scenario('The shop installation', () => {
   scenario('Open the browser and connect installation interface', client => {
-    test('should open the browser', () => client.open());
+    test('should open the browser', async () => {
+      await client.open();
+      await client.startTracing('installShop');
+    });
     test('should go to install page ', () => client.localhost(URL));
   }, 'installation');
 
